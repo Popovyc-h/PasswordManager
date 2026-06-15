@@ -28,8 +28,3 @@ Thumbs.db
 # NuGet
 *.nupkg
 **/packages/*
-
-                             [ Read 25 lines ]
-^G Help        ^O Write Out   ^F Where Is    ^K Cut         ^T Execute
-^X Exit        ^R Read File   ^\ Replace     ^U Paste       ^J Justify
-

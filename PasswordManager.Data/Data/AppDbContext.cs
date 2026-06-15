@@ -16,4 +16,9 @@ public class AppDbContext : DbContext
     {
         optionsBuilder.UseSqlite("Data Source=passwordmanager.db");
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
 }

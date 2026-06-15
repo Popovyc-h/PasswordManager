@@ -1,0 +1,30 @@
+# .NET build outputs
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider / JetBrains
+.idea/
+
+# Database files (НЕ комітимо реальну БД з паролями!)
+*.db
+*.db-shm
+*.db-wal
+
+# EF Core migration snapshots залишаємо - вони потрібні в репозиторії
+# (не додавай *.cs до ігнору, тільки сама БД)
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+**/packages/*

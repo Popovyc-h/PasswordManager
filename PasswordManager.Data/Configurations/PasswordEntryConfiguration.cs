@@ -32,7 +32,7 @@ public class PasswordEntryConfiguration : IEntityTypeConfiguration<PasswordEntry
                .HasMaxLength(500);
 
         builder.HasOne(pe => pe.Category)
-               .WithMany()
+               .WithMany(c => c.PasswordEntries)
                .HasForeignKey(pe => pe.CategoryId);
 
 

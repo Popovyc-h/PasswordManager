@@ -11,7 +11,7 @@ using PasswordManager.Data.Data;
 namespace PasswordManager.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260615201102_InitialCreate")]
+    [Migration("20260616151245_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -65,9 +65,6 @@ namespace PasswordManager.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
@@ -111,8 +108,6 @@ namespace PasswordManager.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CategoryId1");
 
                     b.HasIndex("UserId");
 
@@ -260,14 +255,10 @@ namespace PasswordManager.Data.Migrations
             modelBuilder.Entity("PasswordManager.Core.Entities.PasswordEntry", b =>
                 {
                     b.HasOne("PasswordManager.Core.Entities.Category", "Category")
-                        .WithMany()
+                        .WithMany("PasswordEntries")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("PasswordManager.Core.Entities.Category", null)
-                        .WithMany("PasswordEntries")
-                        .HasForeignKey("CategoryId1");
 
                     b.HasOne("PasswordManager.Core.Entities.User", "User")
                         .WithMany("PasswordEntries")

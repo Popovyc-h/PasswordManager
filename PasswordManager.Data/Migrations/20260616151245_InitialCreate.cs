@@ -103,8 +103,7 @@ namespace PasswordManager.Data.Migrations
                     Url = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    CategoryId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -115,11 +114,6 @@ namespace PasswordManager.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PasswordEntries_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PasswordEntries_Users_UserId",
                         column: x => x.UserId,
@@ -188,11 +182,6 @@ namespace PasswordManager.Data.Migrations
                 name: "IX_PasswordEntries_CategoryId",
                 table: "PasswordEntries",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PasswordEntries_CategoryId1",
-                table: "PasswordEntries",
-                column: "CategoryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PasswordEntries_UserId",

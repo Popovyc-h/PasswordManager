@@ -15,6 +15,97 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
+    <Grid ColumnDefinitions="*, *" Background="{DynamicResource MainBackground}">
+        <StackPanel Grid.Column="1" MaxWidth="400" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+            
+            <TextBlock 
+                Foreground="WhiteSmoke"
+                Text="Password Manager" 
+                HorizontalAlignment="Center" 
+                FontSize="32"
+                FontWeight="SemiBold"
+                TextWrapping="Wrap"/>
 
+            <TextBlock 
+                Text="Введіть майстер-пароль для входу"
+                Foreground="#706e6e"
+                HorizontalAlignment="Center"
+                TextWrapping="Wrap"/>
+
+            <TextBlock
+                Foreground="WhiteSmoke"
+                Text="МАЙСТЕР-ПАРОЛЬ" 
+                FontWeight="SemiBold"
+                Margin="5,10,0,0"
+                HorizontalAlignment="Left" />
+
+            <TextBox
+                FontSize="16"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                PasswordChar="*"
+                Watermark="Введіть пароль:"
+                CornerRadius="15"/>
+        
+            <TextBlock
+                Foreground="WhiteSmoke"
+                Text="EMAIL" 
+                FontWeight="SemiBold"
+                Margin="5,0,0,0"
+                HorizontalAlignment="Left"/>
+        
+            <TextBox
+                FontSize="16"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                Watermark="Введіть логін:"
+                CornerRadius="15"
+                />
+        
+            <TextBlock 
+                Text="Забули пароль?" 
+                Foreground="#7c3aed" 
+                HorizontalAlignment="Right"
+                Cursor="Hand"/>
+
+            <Button
+                Background="{DynamicResource AccentColor}"
+                Padding="8, 8"
+                MinWidth="300"
+                Content="Увійти"
+                Foreground="White"
+                FontSize="16"
+                CornerRadius="10"
+                FontWeight="SemiBold"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Cursor="Hand"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" VerticalAlignment="Stretch"  Background="{DynamicResource SecondBackground}" Spacing="10">
+            
+            <StackPanel VerticalAlignment="Center" Spacing="15">
+
+                <TextBlock Text="🔒" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            
+                <TextBlock 
+                    Text="Welcome to Password Manager" 
+                    Foreground="White" 
+                    FontSize="22"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    TextWrapping="Wrap"/>
+            
+                <TextBlock 
+                    Text="Надійне шифрування ваших даних та швидкий доступ до паролів у будь-який момент." 
+                    Foreground="#706e6e" 
+                    FontSize="13"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 
 </Window>

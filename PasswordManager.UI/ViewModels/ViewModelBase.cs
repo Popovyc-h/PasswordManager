@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace PasswordManager.UI.ViewModels
+namespace PasswordManager.UI.ViewModels;
+
+public abstract class ViewModelBase : ObservableObject
 {
-    public abstract class ViewModelBase : ObservableObject
-    {
-    }
+
 }

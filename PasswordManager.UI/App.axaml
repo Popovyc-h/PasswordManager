@@ -1,10 +1,17 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:PasswordManager.UI"
              x:Class="PasswordManager.UI.App"
              RequestedThemeVariant="Dark"> <Application.Styles>
+
         <FluentTheme />
-        
+
         <StyleInclude Source="avares://PasswordManager.UI/Styles/Styles.axaml"/>
+
     </Application.Styles>
     
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
 </Application>

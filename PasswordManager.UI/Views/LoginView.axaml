@@ -32,12 +32,13 @@
                 HorizontalAlignment="Left"/>
         
             <TextBox
+                Text="{Binding Email}"
                 FontSize="16"
                 Padding="10"
                 HorizontalAlignment="Stretch"
                 Watermark="Введіть логін:"
                 CornerRadius="15"/>
-            
+           
             <TextBlock
                 Foreground="WhiteSmoke"
                 Text="МАЙСТЕР-ПАРОЛЬ" 
@@ -46,6 +47,7 @@
                 HorizontalAlignment="Left" />
 
             <TextBox
+                Text="{Binding MasterPassword}"
                 FontSize="16"
                 Padding="10"
                 HorizontalAlignment="Stretch"

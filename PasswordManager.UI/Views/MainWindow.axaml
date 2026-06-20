@@ -7,5 +7,4 @@
 
     <ContentControl Content="{Binding CurrentPage}"/>
 
-
 </Window>

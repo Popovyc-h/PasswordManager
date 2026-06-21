@@ -1,12 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PasswordManager.Core.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace PasswordManager.UI.ViewModels;
 
 public partial class LoginViewModel : ViewModelBase
 {
     public event Action? OnLoginSuccess;
+
+    private readonly IUserRepository _userRepository;
+    private readonly IPasswordHasher _passwordHasher;
+
+    public LoginViewModel(IUserRepository userRepository, IPasswordHasher passwordHasher)
+    {
+        _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
+    }
 
     [ObservableProperty]
     private string _email;
@@ -15,7 +26,7 @@ public partial class LoginViewModel : ViewModelBase
     private string _masterPassword;
 
     [RelayCommand]
-    private void Login()
+    private async Task Login()
     {
 
         if (string.IsNullOrWhiteSpace(Email) || !Email.Contains("@") || !Email.Contains("."))
@@ -28,6 +39,14 @@ public partial class LoginViewModel : ViewModelBase
             return;
         }
 
-        OnLoginSuccess?.Invoke();
+        var user = await _userRepository.GetByUsernameAsync(Email);
+
+        if (user == null)
+            return;
+
+        var isPasswordValid = _passwordHasher.VerifyPassword(MasterPassword, user.MasterPasswordHash, user.MasterPasswordSalt);
+
+        if (isPasswordValid)
+            OnLoginSuccess?.Invoke();
     }
 }

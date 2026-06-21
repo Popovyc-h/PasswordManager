@@ -8,10 +8,8 @@ public partial class MainWindowViewModel : ViewModelBase
     private ViewModelBase _currentPage;
 
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(LoginViewModel loginPage)
     {
-        var loginPage = new LoginViewModel();
-
         loginPage.OnLoginSuccess += MoveToMainPage;
 
         CurrentPage = loginPage;

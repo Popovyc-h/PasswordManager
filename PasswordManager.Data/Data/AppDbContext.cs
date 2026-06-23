@@ -14,7 +14,8 @@ public class AppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=passwordmanager.db");
+        var dbPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "passwordmanager.db");
+        optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(dbPath)}");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

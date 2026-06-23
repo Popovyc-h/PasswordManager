@@ -2,20 +2,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
              x:Class="PasswordManager.UI.Views.MainDashboardView">
 
-<Grid ColumnDefinitions="260, *">
-    <Border Grid.Column="0" Background="{DynamicResource SecondBackground}" BorderThickness="0,0,1,0" BorderBrush="#2A2A2A">
+    <Grid ColumnDefinitions="Auto, *" Background="{DynamicResource MainBackground}">
 
-    </Border>
+        <Border Padding="20" Background="{DynamicResource SecondBackground}">
+            
+            <Grid RowDefinitions="*, Auto" >
+                
+                <StackPanel Spacing="12">
+                    
+                    <TextBlock 
+                        Text="Password Manager" 
+                        FontSize="26" 
+                        Foreground="{DynamicResource TextMain}" 
+                        FontWeight="SemiBold" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"/>
 
-    <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="20">
-        
+                    <Button Content="Button" Classes="main" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+                    <Button Content="Button" Classes="main"/>
+                    <Button Content="Button" Classes="main"/>
+                    <Button Content="Button" Classes="main"/>
+                    <Button Content="Button" Classes="main"/>
 
-        <Border Grid.Row="1" Background="#1E1E1E" CornerRadius="12" Padding="20">
+                </StackPanel>
+
+                    <Button Grid.Row="1" Content="Settings" Background="{DynamicResource InputBackground}" Padding="8"/>
+
+            </Grid>
+
         </Border>
+
     </Grid>
-</Grid>
 
 </UserControl>

@@ -7,7 +7,7 @@
 
     <Grid ColumnDefinitions="Auto, *" Background="{DynamicResource MainBackground}">
 
-        <Border Padding="20" Background="{DynamicResource SecondBackground}">
+        <Border Padding="20" Width="300" Background="{DynamicResource SecondBackground}">
             
             <Grid RowDefinitions="*, Auto" >
                 
@@ -21,8 +21,8 @@
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center"/>
 
-                    <Button Content="Button" Classes="main" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-                    <Button Content="Button" Classes="main"/>
+                    <Button Content="Всі паролі" Classes="main"/>
+                    <Button Content="Генератор паролів" Classes="main"/>
                     <Button Content="Button" Classes="main"/>
                     <Button Content="Button" Classes="main"/>
                     <Button Content="Button" Classes="main"/>
@@ -34,6 +34,38 @@
             </Grid>
 
         </Border>
+        
+        <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="24">
+            
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,24">
+                <TextBlock 
+                    Grid.Column="0"
+                    Text="Мої паролі" 
+                    FontSize="28" 
+                    FontWeight="SemiBold" 
+                    Foreground="{DynamicResource TextMain}"
+                    VerticalAlignment="Center"/>
+                
+                <Button 
+                    Grid.Column="1"
+                    Content="+ Новий запис" 
+                    Classes="main"
+                    Background="{DynamicResource AccentColor}"
+                    Foreground="White"
+                    Padding="16,10"
+                    VerticalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <TextBlock 
+                    Text="Записів ще немає" 
+                    FontSize="16"
+                    Foreground="{DynamicResource TextSecondary}" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"/>
+            </Grid>
+            
+        </Grid>
 
     </Grid>
 

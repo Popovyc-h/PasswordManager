@@ -7,6 +7,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase _currentPage;
 
+    public byte[]? AesKey { get; set; }
 
     public MainWindowViewModel(LoginViewModel loginPage)
     {
@@ -15,11 +16,12 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPage = loginPage;
     }
 
-    private void MoveToMainPage()
+    private void MoveToMainPage(byte[] aesKey)
     {
         if (CurrentPage is LoginViewModel oldLogin)
             oldLogin.OnLoginSuccess -= MoveToMainPage;
 
+        AesKey = aesKey;
         CurrentPage = new MainDashboardViewModel();
     }
 }

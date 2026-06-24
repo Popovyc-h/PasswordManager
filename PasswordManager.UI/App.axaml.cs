@@ -34,6 +34,9 @@ public partial class App : Application
             services.AddTransient<LoginViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<IEncryptionService, EncryptionService>();
+            services.AddSingleton<IDerivedKeyService, DerivedKeyService>();
+
             var serviceProvider = services.BuildServiceProvider();
 
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 

@@ -36,6 +36,7 @@ public partial class App : Application
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<IEncryptionService, EncryptionService>();
             services.AddSingleton<IDerivedKeyService, DerivedKeyService>();
+            services.AddSingleton<IPasswordGenerator, PasswordGenerator>();
 
             var serviceProvider = services.BuildServiceProvider();
 

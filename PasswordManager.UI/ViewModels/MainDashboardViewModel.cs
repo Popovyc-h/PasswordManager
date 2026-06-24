@@ -1,6 +1,27 @@
-﻿namespace PasswordManager.UI.ViewModels;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-public class MainDashboardViewModel : ViewModelBase
+namespace PasswordManager.UI.ViewModels;
+
+public partial class MainDashboardViewModel : ViewModelBase
 {
+    [ObservableProperty]
+    private ViewModelBase _currentView;
 
+    public MainDashboardViewModel()
+    {
+        _currentView = new PasswordListViewModel();
+    }
+
+    [RelayCommand]
+    private void ShowGenerator()
+    {
+        CurrentView = new PasswordGeneratorViewModel();
+    }
+
+    [RelayCommand]
+    private void ShowPasswordList()
+    {
+        CurrentView = new PasswordListViewModel();
+    }
 }

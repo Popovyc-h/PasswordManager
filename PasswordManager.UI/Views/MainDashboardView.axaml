@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PasswordManager.UI.ViewModels"
+             x:DataType="vm:MainDashboardViewModel"
              mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
              x:Class="PasswordManager.UI.Views.MainDashboardView">
 
@@ -21,8 +23,8 @@
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center"/>
 
-                    <Button Content="Всі паролі" Classes="main"/>
-                    <Button Content="Генератор паролів" Classes="main"/>
+                    <Button Content="Всі паролі" Classes="main" Command="{Binding ShowPasswordListCommand}"/>
+                    <Button Content="Генератор паролів" Classes="main" Command="{Binding ShowGeneratorCommand}"/>
                     <Button Content="Button" Classes="main"/>
                     <Button Content="Button" Classes="main"/>
                     <Button Content="Button" Classes="main"/>
@@ -55,15 +57,8 @@
                     Padding="16,10"
                     VerticalAlignment="Center"/>
             </Grid>
-
-            <Grid Grid.Row="1">
-                <TextBlock 
-                    Text="Записів ще немає" 
-                    FontSize="16"
-                    Foreground="{DynamicResource TextSecondary}" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"/>
-            </Grid>
+            
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
             
         </Grid>
 

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PasswordManager.Core.Interfaces;
 
 namespace PasswordManager.UI.ViewModels;
 
@@ -8,15 +9,18 @@ public partial class MainDashboardViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase _currentView;
 
-    public MainDashboardViewModel()
+    private readonly IPasswordGenerator _passwordGenerator;
+    
+    public MainDashboardViewModel(IPasswordGenerator passwordGenerator)
     {
+        _passwordGenerator = passwordGenerator;
         _currentView = new PasswordListViewModel();
     }
 
     [RelayCommand]
     private void ShowGenerator()
     {
-        CurrentView = new PasswordGeneratorViewModel();
+        CurrentView = new PasswordGeneratorViewModel(_passwordGenerator);
     }
 
     [RelayCommand]

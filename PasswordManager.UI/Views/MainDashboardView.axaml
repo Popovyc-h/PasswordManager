@@ -28,7 +28,7 @@
 
                 </StackPanel>
 
-                    <Button Grid.Row="1" Content="Settings" Background="{DynamicResource InputBackground}" Padding="8"/>
+                    <Button Grid.Row="1" Content="Налаштування" Command="{Binding ShowSettingsCommand}" Background="{DynamicResource InputBackground}" Padding="8"/>
 
             </Grid>
 

@@ -28,4 +28,10 @@ public partial class MainDashboardViewModel : ViewModelBase
     {
         CurrentView = new PasswordListViewModel();
     }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        CurrentView = new SettingsViewModel();
+    }
 }

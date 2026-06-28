@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using PasswordManager.Core.Entities;
 
 namespace PasswordManager.UI.ViewModels;
 
@@ -6,7 +7,7 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
     private ViewModelBase _currentPage;
-
+    public int CurrentUserId { get; set; }
     private readonly MainDashboardViewModel _dashboardViewModel;
 
     public byte[]? AesKey { get; set; }
@@ -18,11 +19,12 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPage = loginPage;
     }
 
-    private void MoveToMainPage(byte[] aesKey)
+    private void MoveToMainPage(byte[] aesKey, int userId)
     {
         if (CurrentPage is LoginViewModel oldLogin)
             oldLogin.OnLoginSuccess -= MoveToMainPage;
 
+        CurrentUserId = userId;
         AesKey = aesKey;
         CurrentPage = _dashboardViewModel;
     }

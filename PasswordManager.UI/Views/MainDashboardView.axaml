@@ -16,8 +16,8 @@
                 <StackPanel Spacing="12">
                     
                     <TextBlock 
-                        Text="Password Manager" 
-                        FontSize="26" 
+                        Text="Password Manager"
+                        FontSize="26"
                         Foreground="{DynamicResource TextMain}" 
                         FontWeight="SemiBold" 
                         VerticalAlignment="Center" 
@@ -25,9 +25,6 @@
 
                     <Button Content="Всі паролі" Classes="main" Command="{Binding ShowPasswordListCommand}"/>
                     <Button Content="Генератор паролів" Classes="main" Command="{Binding ShowGeneratorCommand}"/>
-                    <Button Content="Button" Classes="main"/>
-                    <Button Content="Button" Classes="main"/>
-                    <Button Content="Button" Classes="main"/>
 
                 </StackPanel>
 
@@ -37,28 +34,9 @@
 
         </Border>
         
-        <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="24">
+        <Grid Grid.Column="1" RowDefinitions="*" Margin="24">
             
-            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,24">
-                <TextBlock 
-                    Grid.Column="0"
-                    Text="Мої паролі" 
-                    FontSize="28" 
-                    FontWeight="SemiBold" 
-                    Foreground="{DynamicResource TextMain}"
-                    VerticalAlignment="Center"/>
-                
-                <Button 
-                    Grid.Column="1"
-                    Content="+ Новий запис" 
-                    Classes="main"
-                    Background="{DynamicResource AccentColor}"
-                    Foreground="White"
-                    Padding="16,10"
-                    VerticalAlignment="Center"/>
-            </Grid>
-            
-            <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
+            <ContentControl Grid.Row="0" Content="{Binding CurrentView}"/>
             
         </Grid>
 

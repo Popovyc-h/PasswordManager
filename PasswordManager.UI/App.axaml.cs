@@ -35,6 +35,7 @@ public partial class App : Application
             services.AddSingleton<IDerivedKeyService, DerivedKeyService>();
             services.AddSingleton<IPasswordGenerator, PasswordGenerator>();
             services.AddTransient<MainDashboardViewModel>();
+            services.AddTransient<IPasswordEntryRepository, PasswordEntryRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
 

@@ -2,6 +2,6 @@
 
 public interface IEncryptionService
 {
-    public (string EncryptedText, string IV) Encrypt(string plainText, byte[] key);
-    public string Decrypt(string encryptedText, string iv, byte[] key);
+    (string EncryptedText, string IV) Encrypt(string plainText, byte[] key);
+    string Decrypt(string encryptedText, string iv, byte[] key);
 }

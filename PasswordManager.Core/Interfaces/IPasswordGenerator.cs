@@ -2,5 +2,5 @@
 
 public interface IPasswordGenerator
 {
-    public string Generate(int length, bool useUppercase, bool useLowercase, bool useDigits, bool useSpecial);
+    string Generate(int length, bool useUppercase, bool useLowercase, bool useDigits, bool useSpecial);
 }

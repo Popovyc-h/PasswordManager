@@ -2,42 +2,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
     <Border Padding="20" Background="{DynamicResource SecondBackground}" Width="200">
-      <!-- Add Controls for Previewer Here -->
-
       <Button Content="Click" Classes="main"/>
-
     </Border>
   </Design.PreviewWith>
 
-<Styles.Resources>
-    <SolidColorBrush x:Key="MainBackground">#0f0f13</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondBackground">#16161e</SolidColorBrush>
-    <SolidColorBrush x:Key="InputBackground">#1d1d26</SolidColorBrush>
-    <SolidColorBrush x:Key="BorderColor">#262633</SolidColorBrush>
-    <SolidColorBrush x:Key="BorderHoverColor">#3b3b4f</SolidColorBrush>
-    <SolidColorBrush x:Key="AccentColor">#7c3aed</SolidColorBrush>
-    <SolidColorBrush x:Key="AccentHoverColor">#6d28d9</SolidColorBrush>
-    <SolidColorBrush x:Key="AccentMutedColor">#267c3aed</SolidColorBrush>
-    <SolidColorBrush x:Key="TextMain">#f3f4f6</SolidColorBrush>
-    <SolidColorBrush x:Key="TextSecondary">#9ca3af</SolidColorBrush>
-    <SolidColorBrush x:Key="TextMuted">#6b7280</SolidColorBrush>    
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+      
+          <!-- ТЕМНА ТЕМА -->
+          <ResourceDictionary x:Key="Dark">
+              <SolidColorBrush x:Key="MainBackground">#0f0f13</SolidColorBrush>
+              <SolidColorBrush x:Key="SecondBackground">#16161e</SolidColorBrush>
+              <SolidColorBrush x:Key="InputBackground">#1d1d26</SolidColorBrush>
+              <SolidColorBrush x:Key="BorderColor">#262633</SolidColorBrush>
+              <SolidColorBrush x:Key="BorderHoverColor">#3b3b4f</SolidColorBrush>
+              <SolidColorBrush x:Key="AccentColor">#7c3aed</SolidColorBrush>
+              <SolidColorBrush x:Key="AccentHoverColor">#6d28d9</SolidColorBrush>
+              <SolidColorBrush x:Key="TextMain">#f3f4f6</SolidColorBrush>
+              <SolidColorBrush x:Key="TextSecondary">#9ca3af</SolidColorBrush>
+          </ResourceDictionary>
 
-</Styles.Resources>
+        <!-- СВІТЛА ТЕМА -->
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="MainBackground">#f9fafb</SolidColorBrush>
+            <SolidColorBrush x:Key="SecondBackground">#ffffff</SolidColorBrush>
+            <SolidColorBrush x:Key="InputBackground">#f3f4f6</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderColor">#e5e7eb</SolidColorBrush>
+            <SolidColorBrush x:Key="BorderHoverColor">#d1d5db</SolidColorBrush>
+            <SolidColorBrush x:Key="AccentColor">#7c3aed</SolidColorBrush>
+            <SolidColorBrush x:Key="AccentHoverColor">#6d28d9</SolidColorBrush>
+            <SolidColorBrush x:Key="TextMain">#111827</SolidColorBrush>
+            <SolidColorBrush x:Key="TextSecondary">#4b5563</SolidColorBrush>
+        </ResourceDictionary>
+        
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
 
+  <Style Selector="Button.main">
+      <Setter Property="FontSize" Value="20"/>
+      <Setter Property="Foreground" Value="{DynamicResource TextMain}"/>
+      <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Padding" Value="8"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="CornerRadius" Value="8"/>
+  </Style>
 
-    <Style Selector="Button.main">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextMain}"/>
-        <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Padding" Value="8"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="CornerRadius" Value="8"/>
-    </Style>
-
-    <Style Selector="Button.main:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#282830"/> 
-        <Setter Property="Foreground" Value="{DynamicResource TextMain}"/>
-    </Style>
+  <Style Selector="Button.main:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#282830"/> 
+      <Setter Property="Foreground" Value="{DynamicResource TextMain}"/>
+  </Style>
 
 </Styles>

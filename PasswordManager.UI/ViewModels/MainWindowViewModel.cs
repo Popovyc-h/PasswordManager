@@ -19,7 +19,7 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPage = loginPage;
     }
 
-    private void MoveToMainPage(byte[] aesKey, int userId)
+    private async void MoveToMainPage(byte[] aesKey, int userId)
     {
         if (CurrentPage is LoginViewModel oldLogin)
             oldLogin.OnLoginSuccess -= MoveToMainPage;
@@ -27,5 +27,6 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentUserId = userId;
         AesKey = aesKey;
         CurrentPage = _dashboardViewModel;
+        await _dashboardViewModel.InitializeAsync(userId);
     }
 }

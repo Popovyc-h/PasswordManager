@@ -37,6 +37,7 @@ public partial class App : Application
             services.AddTransient<MainDashboardViewModel>();
             services.AddTransient<IPasswordEntryRepository, PasswordEntryRepository>();
             services.AddTransient<SettingsViewModel>();
+            services.AddSingleton<ISessionService, SessionService>();
 
             var serviceProvider = services.BuildServiceProvider();
 

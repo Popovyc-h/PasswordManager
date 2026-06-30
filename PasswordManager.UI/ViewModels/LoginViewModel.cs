@@ -8,17 +8,19 @@ namespace PasswordManager.UI.ViewModels;
 
 public partial class LoginViewModel : ViewModelBase
 {
-    public event Action<byte[], int>? OnLoginSuccess;
+    public event Action? OnLoginSuccess;
 
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IDerivedKeyService _derivedKeyService;
+    private readonly ISessionService _sessionService;
 
-    public LoginViewModel(IUserRepository userRepository, IPasswordHasher passwordHasher, IDerivedKeyService derivedKeyService)
+    public LoginViewModel(IUserRepository userRepository, IPasswordHasher passwordHasher, IDerivedKeyService derivedKeyService, ISessionService sessionService)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _derivedKeyService = derivedKeyService;
+        _sessionService = sessionService;
     }
 
     [ObservableProperty]
@@ -46,9 +48,9 @@ public partial class LoginViewModel : ViewModelBase
 
         if (isPasswordValid)
         {
-            var aesKey = _derivedKeyService.DeriveKey(MasterPassword, user.AesKeySalt);
-
-            OnLoginSuccess?.Invoke(aesKey, user.Id);
+            _sessionService.AesKey = _derivedKeyService.DeriveKey(MasterPassword, user.AesKeySalt);
+            _sessionService.UserId = user.Id;
+            OnLoginSuccess?.Invoke();
         }
     }
 }

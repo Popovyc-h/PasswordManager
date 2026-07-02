@@ -25,6 +25,7 @@
 
                     <Button Content="Всі паролі" Classes="main" Command="{Binding ShowPasswordListCommand}"/>
                     <Button Content="Генератор паролів" Classes="main" Command="{Binding ShowGeneratorCommand}"/>
+                    <Button Content="+ Новий запис" Classes="main" Command="{Binding ShowAddEntryCommand}"/>
 
                 </StackPanel>
 

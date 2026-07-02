@@ -15,9 +15,5 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Name)
                .IsRequired()
                .HasMaxLength(50);
-
-        builder.HasOne(c => c.User)
-               .WithMany()
-               .HasForeignKey(c => c.UserId);
     }
 }

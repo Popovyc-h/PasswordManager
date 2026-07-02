@@ -4,9 +4,9 @@ public class PasswordEntry
 {
     public int Id { get; set; }
     public int UserId { get; set; }
-    public required User User { get; set; }
+    public User? User { get; set; }
     public int CategoryId { get; set; }
-    public required Category Category { get; set; }
+    public Category? Category { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Login { get; set; } = string.Empty;
     public string EncryptedPassword { get; set; } = string.Empty;

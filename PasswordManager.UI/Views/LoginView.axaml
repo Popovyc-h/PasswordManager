@@ -70,7 +70,7 @@
                     FontSize="16"
                     Padding="14,13"
                     HorizontalAlignment="Stretch"
-                    Watermark="Введіть логін"
+                    Watermark="example@email.com"
                     CornerRadius="12"/>
             </StackPanel>
            

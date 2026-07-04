@@ -5,117 +5,111 @@
              xmlns:vm="using:PasswordManager.UI.ViewModels"
              x:DataType="vm:AddEntryViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
-             x:Class="PasswordManager.UI.Views.AddEntryView">
+             x:Class="PasswordManager.UI.Views.AddEntryView"
+             Background="{DynamicResource MainBackground}">
 
-     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        
-        <!-- Центруємо всю форму на екрані та задаємо оптимальну ширину -->
-        <StackPanel Margin="40,30" MaxWidth="460" HorizontalAlignment="Center" Spacing="24">
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextMain}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverColor}"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColor}"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
             
-            <!-- Заголовок форми з підзаголовком -->
-            <StackPanel Spacing="4">
-                <TextBlock Text="Новий запис" 
-                           FontSize="26" 
-                           FontWeight="Bold" 
-                           Foreground="{DynamicResource TextMain}"/>
-                <TextBlock Text="Заповніть дані для безпечного збереження" 
-                           FontSize="13" 
-                           Foreground="{DynamicResource TextSecondary}"/>
-            </StackPanel>
-
-            <!-- Основний блок полів введення -->
-            <StackPanel Spacing="16">
+            <Border Background="{DynamicResource SecondBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="1"
+                    CornerRadius="16"
+                    BoxShadow="0 4 18 0 #05000000"
+                    Width="480"
+                    Padding="32,28">
                 
-                <TextBox Watermark="Назва сервісу (напр. Google)" Text="{Binding Title}" />
-                <TextBox Watermark="Логін / Email" Text="{Binding Login}" />
-                <TextBox Watermark="URL адреса (напр. https://google.com)" Text="{Binding Url}" />
-
-                <!-- Рядок пароля: поле + кнопка генерації -->
-                <Grid ColumnDefinitions="*, Auto">
-                    <!-- RevealPasswordButtonVisible автоматично додає іконку "око" всередину поля -->
-                    <TextBox Grid.Column="0" 
-                             Watermark="Пароль" 
-                             PasswordChar="*" 
-                             Text="{Binding Password}" />
+                <StackPanel Spacing="24">
                     
-                    <Button Grid.Column="1" 
-                            Content="Згенерувати" 
-                            Command="{Binding GeneratePasswordCommand}"
-                            Classes="main" 
-                            Margin="12,0,0,0"
-                            Padding="16,0"
-                            VerticalAlignment="Stretch"
-                            VerticalContentAlignment="Center"/>
-                </Grid>
-
-                <!-- Картка налаштувань генератора -->
-                <Border Background="{DynamicResource SecondBackground}" 
-                        BorderBrush="{DynamicResource BorderColor}" 
-                        BorderThickness="1" 
-                        CornerRadius="12" 
-                        Padding="20,16">
-                    
-                    <StackPanel Spacing="14">
-                        
-                        <TextBlock Text="Налаштування генератора" 
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Новий запис" 
+                                   FontSize="24" 
                                    FontWeight="SemiBold" 
-                                   FontSize="14" 
                                    Foreground="{DynamicResource TextMain}"/>
-                        
-                        <!-- Довжина пароля -->
-                        <Grid ColumnDefinitions="*, Auto" Margin="0,4,0,0">
-                            <TextBlock Grid.Column="0" Text="Довжина символів:" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondary}"/>
-                            <!-- NumericUpDown набагато акуратніший та зручніший у використанні, ніж Slider -->
-                            <NumericUpDown Grid.Column="1" Minimum="8" Maximum="64" Value="{Binding Length}" FormatString="0" Width="110" VerticalAlignment="Center"/>
-                        </Grid>
-                        
-                        <!-- Лінія-розділювач для візуального порядку -->
-                        <Separator Background="{DynamicResource BorderColor}" Height="1" Margin="0,4"/>
-                        
-                        <!-- Опції у два стовпчики (UniformGrid економить купу вертикального простору) -->
-                        <UniformGrid Columns="2" Rows="2">
-                            <CheckBox Content="Великі літери (A-Z)" IsChecked="{Binding UseUppercase}" Margin="0,4"/>
-                            <CheckBox Content="Малі літери (a-z)" IsChecked="{Binding UseLowercase}" Margin="0,4"/>
-                            <CheckBox Content="Цифри (0-9)" IsChecked="{Binding UseDigits}" Margin="0,4"/>
-                            <CheckBox Content="Спеціальні (!@#)" IsChecked="{Binding UseSpecial}" Margin="0,4"/>
-                        </UniformGrid>
-                        
+                        <TextBlock Text="Заповніть дані для безпечного збереження" 
+                                   FontSize="13" 
+                                   Foreground="{DynamicResource TextSecondary}"/>
                     </StackPanel>
-                </Border>
 
-                <!-- Нотатки -->
-                <TextBox Watermark="Додаткові нотатки..." 
-                         Text="{Binding Notes}" 
-                         AcceptsReturn="True" 
-                         Height="100" 
-                         TextWrapping="Wrap"
-                         VerticalContentAlignment="Top"
-                         Padding="10,12"/>
-           
-            </StackPanel>
+                    <Separator Height="1" Background="{DynamicResource BorderColor}" Margin="0,-4,0,4"/>
 
-            <!-- Нижні кнопки дій -->
-            <Grid ColumnDefinitions="*, *" ColumnSpacing="12" Margin="0,8,0,0">
-                <Button Grid.Column="0" 
-                        Content="Скасувати" 
-                        Background="Transparent" 
-                        BorderBrush="{DynamicResource BorderColor}" 
-                        BorderThickness="1"
-                        Height="42"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"/>
-               
-                <Button Grid.Column="1" 
-                        Content="Зберегти запис" 
-                        Command="{Binding SaveCommand}" 
-                        Classes="main" 
-                        Height="42"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"/>
-            </Grid>
+                    <StackPanel Spacing="16">
+                        
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Назва сервісу" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <TextBox Watermark="Наприклад, Google, GitHub..." Text="{Binding Title}" />
+                        </StackPanel>
 
-        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Логін або Email" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <TextBox Watermark="username @ email.com" Text="{Binding Login}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Веб-сайт" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <TextBox Watermark="https://example.com" Text="{Binding Url}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Пароль" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <TextBox Grid.Column="0" 
+                                         Watermark="Введіть пароль" 
+                                         PasswordChar="*" 
+                                         Theme="{StaticResource FluentTextBox}"
+                                         Text="{Binding Password}" />
+                                
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Нотатки" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <TextBox Watermark="Додаткова інформація (PIN-коди, секретні питання)..." 
+                                     Text="{Binding Notes}" 
+                                     AcceptsReturn="True" 
+                                     Height="90" 
+                                     TextWrapping="Wrap"
+                                     VerticalContentAlignment="Top"/>
+                        </StackPanel>
+                   
+                    </StackPanel>
+
+                    <Grid ColumnSpacing="12" Margin="0,8,0,0">
+
+                       
+                        <Button Grid.Column="1" 
+                                Content="Зберегти" 
+                                Command="{Binding SaveCommand}" 
+                                Classes="main" 
+                                Height="40"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </Grid>
     </ScrollViewer>
 </UserControl>

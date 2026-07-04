@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
              xmlns:vm="using:PasswordManager.UI.ViewModels"
              x:DataType="vm:LoginViewModel"
              mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
@@ -9,39 +10,42 @@
 
     <Grid ColumnDefinitions="5*,6*" Background="{DynamicResource MainBackground}">
         
-        <StackPanel Grid.Column="0" VerticalAlignment="Stretch" 
-                    Background="{DynamicResource SecondBackground}" 
-                    Spacing="10">
-
-            <StackPanel VerticalAlignment="Center" Spacing="24" Margin="40,0">
-                <PathIcon Data="{StaticResource LockIcon}" 
-                          Width="78" Height="78" 
-                          Foreground="{DynamicResource AccentColor}"
-                          HorizontalAlignment="Center" />
-
+        <Grid Grid.Column="0" 
+              Background="{DynamicResource SecondBackground}" 
+              VerticalAlignment="Stretch">
+            
+            <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Center" 
+                        Spacing="20" 
+                        Margin="40">
+                
                 <TextBlock 
                     Text="Password Manager" 
-                    Foreground="White" 
-                    FontSize="28"
-                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource TextMain}" 
+                    FontSize="32"
+                    FontWeight="Bold"
                     HorizontalAlignment="Center"
                     TextWrapping="Wrap"/>
-
-                <TextBlock 
-                    Text="Надійне шифрування ваших даних та швидкий доступ до паролів у будь-який момент." 
-                    Foreground="#706e6e" 
-                    FontSize="13.5"
+                
+                <TextBlock
+                    Text="Надійне шифрування ваших даних та швидкий доступ до паролів у будь-який момент."
+                    Foreground="{DynamicResource TextMain}" 
+                    Opacity="0.6"
+                    FontSize="14"
+                    LineHeight="20"
                     TextWrapping="Wrap"
                     TextAlignment="Center"
                     HorizontalAlignment="Center"
                     MaxWidth="280"/>
+            
             </StackPanel>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1" MaxWidth="400" Spacing="20" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-
+        
+        </Grid>
+        
+        <StackPanel Grid.Column="1" MaxWidth="400" Spacing="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            
             <StackPanel Spacing="6" Margin="0,0,0,10">
+                
                 <TextBlock 
                     Foreground="WhiteSmoke"
                     Text="Login" 
@@ -55,9 +59,11 @@
                     HorizontalAlignment="Center"
                     FontSize="14.5"
                     TextWrapping="Wrap"/>
+
             </StackPanel>
         
             <StackPanel Spacing="8">
+
                 <TextBlock
                     Foreground="WhiteSmoke"
                     Text="EMAIL" 
@@ -72,26 +78,46 @@
                     HorizontalAlignment="Stretch"
                     Watermark="example@email.com"
                     CornerRadius="12"/>
+
             </StackPanel>
            
             <StackPanel Spacing="8">
-                <TextBlock
-                    Foreground="WhiteSmoke"
-                    Text="МАЙСТЕР-ПАРОЛЬ" 
-                    FontWeight="SemiBold"
-                    Margin="4,0,0,0"
-                    HorizontalAlignment="Left" />
 
-                <TextBox
-                    Text="{Binding MasterPassword}"
-                    FontSize="16"
-                    Padding="14,13"
-                    HorizontalAlignment="Stretch"
-                    PasswordChar="*"
-                    Watermark="Введіть пароль"
-                    CornerRadius="12"/>
+                    <TextBlock
+                        Foreground="WhiteSmoke"
+                        Text="МАЙСТЕР-ПАРОЛЬ" 
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        LetterSpacing="1"
+                        Margin="4,0,0,0" />
+                    
+                    <TextBox
+                        Text="{Binding MasterPassword}"
+                        FontSize="15"
+                        Padding="14,12"
+                        PasswordChar="{Binding PasswordMaskChar}"
+                        Watermark="Введіть ваш пароль"
+                        CornerRadius="10">
+                        
+                        <TextBox.InnerRightContent>
+                            
+                            <Button Command="{Binding ToggleShowPasswordCommand}"
+                                    Margin="4"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="8"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center">
+                                <svg:Svg Path="avares://PasswordManager.UI/Assets/eye.svg" Width="20" Height="20"/>
+                            
+                            </Button>
+                        
+                        </TextBox.InnerRightContent>
+                    
+                    </TextBox>
+            
             </StackPanel>
-        
+            
             <TextBlock 
                 Text="Забули пароль?" 
                 Foreground="#7c3aed" 

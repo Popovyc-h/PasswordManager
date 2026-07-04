@@ -29,6 +29,12 @@ public partial class LoginViewModel : ViewModelBase
     [ObservableProperty]
     private string _masterPassword;
 
+    [NotifyPropertyChangedFor(nameof(PasswordMaskChar))]
+    [ObservableProperty]
+    private bool _isPasswordVisible;
+    
+    public char PasswordMaskChar => IsPasswordVisible ? '\0' : '*';
+
     [RelayCommand]
     private async Task Login()
     {
@@ -52,5 +58,14 @@ public partial class LoginViewModel : ViewModelBase
             _sessionService.UserId = user.Id;
             OnLoginSuccess?.Invoke();
         }
+    }
+
+    [RelayCommand]
+    private void ToggleShowPassword()
+    {
+        if (IsPasswordVisible)
+            IsPasswordVisible = false;
+        else
+            IsPasswordVisible = true;
     }
 }

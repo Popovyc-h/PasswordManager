@@ -14,17 +14,19 @@ public partial class MainDashboardViewModel : ViewModelBase
     private readonly IPasswordEntryRepository _passwordEntryRepository;
     private readonly SettingsViewModel _settingsViewModel;
     private readonly AddEntryViewModel _addEntryViewModel;
+    private readonly IEncryptionService _encryptionService;
+    private readonly ISessionService _sessionService;
 
     private int _currentUserId;
 
-    public MainDashboardViewModel(IPasswordGenerator passwordGenerator, IPasswordEntryRepository passwordEntryRepository, SettingsViewModel settingsViewModel, AddEntryViewModel addEntryViewModel)
+    public MainDashboardViewModel(IPasswordGenerator passwordGenerator, IPasswordEntryRepository passwordEntryRepository, SettingsViewModel settingsViewModel, AddEntryViewModel addEntryViewModel, IEncryptionService encryptionService, ISessionService sessionService)
     {
         _passwordGenerator = passwordGenerator;
         _passwordEntryRepository = passwordEntryRepository;
         _settingsViewModel = settingsViewModel;
         _addEntryViewModel = addEntryViewModel;
-        _currentView = new PasswordListViewModel(_passwordEntryRepository);
-
+        _encryptionService = encryptionService;
+        _sessionService = sessionService;
         _addEntryViewModel.OnEntrySaved += OnEntryWasSaved;
     }
 
@@ -55,7 +57,7 @@ public partial class MainDashboardViewModel : ViewModelBase
     public async Task InitializeAsync(int userId)
     {
         _currentUserId = userId;
-        var listVm = new PasswordListViewModel(_passwordEntryRepository);
+        var listVm = new PasswordListViewModel(_passwordEntryRepository, _encryptionService, _sessionService);
         await listVm.InitializeAsync(userId);
         CurrentView = listVm;
     }

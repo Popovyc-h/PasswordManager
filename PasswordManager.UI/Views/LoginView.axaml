@@ -123,6 +123,7 @@
                 Foreground="#7c3aed" 
                 HorizontalAlignment="Right"
                 FontSize="13.5"
+                TextDecorations="Underline"
                 Cursor="Hand"
                 Margin="0,4,0,0"/>
 
@@ -140,6 +141,17 @@
                 Cursor="Hand"
                 Command="{Binding LoginCommand}"
                 Margin="0,10,0,0"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                
+                <TextBlock Text="Ще не маєте акаунту? " Foreground="#706e6e" FontSize="13.5"/>
+                <TextBlock Text="Створити акаунт" 
+                           Foreground="{DynamicResource AccentColor}" 
+                           FontWeight="SemiBold"
+                           Cursor="Hand"
+                           TextDecorations="Underline"/>
+
+            </StackPanel>
 
         </StackPanel>
     </Grid>

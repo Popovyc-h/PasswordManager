@@ -9,6 +9,8 @@ namespace PasswordManager.UI.ViewModels;
 
 public partial class AddEntryViewModel : ViewModelBase
 {
+    private int? _editingEntryId;
+
     [ObservableProperty]
     private string _title = string.Empty;
 
@@ -63,23 +65,48 @@ public partial class AddEntryViewModel : ViewModelBase
         if (_sessionService.AesKey == null)
             return;
 
-        var (encryptedPassword, iv) = _encryptionService.Encrypt(Password, _sessionService.AesKey);
-
-        var passwordEntry = new PasswordEntry
+        if (_editingEntryId.HasValue)
         {
-            UserId = _sessionService.UserId,
-            Title = Title,
-            Login = Login,
-            EncryptedPassword = encryptedPassword,
-            IV = iv,
-            Url = Url,
-            Notes = Notes,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            CategoryId = CategoryId,
-        };
+            int id = _editingEntryId.Value;
 
-        await _passwordEntryRepository.AddAsync(passwordEntry);
+            var existing = await _passwordEntryRepository.GetByIdAsync(id);
+
+            if (existing == null) 
+                return;
+
+            var (encryptedPassword, iv) = _encryptionService.Encrypt(Password, _sessionService.AesKey);
+
+            existing.Title = Title;
+            existing.Login = Login;
+            existing.EncryptedPassword = encryptedPassword;
+            existing.IV = iv;
+            existing.Url = Url;
+            existing.Notes = Notes;
+            existing.CategoryId = CategoryId;
+            existing.UpdatedAt = DateTime.UtcNow;
+
+            await _passwordEntryRepository.UpdateAsync(existing);
+        }
+        else
+        {
+            var (encryptedPassword, iv) = _encryptionService.Encrypt(Password, _sessionService.AesKey);
+
+            var passwordEntry = new PasswordEntry
+            {
+                UserId = _sessionService.UserId,
+                Title = Title,
+                Login = Login,
+                EncryptedPassword = encryptedPassword,
+                IV = iv,
+                Url = Url,
+                Notes = Notes,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                CategoryId = CategoryId,
+            };
+
+            await _passwordEntryRepository.AddAsync(passwordEntry);
+        }
         OnEntrySaved?.Invoke();
     }
 
@@ -87,5 +114,27 @@ public partial class AddEntryViewModel : ViewModelBase
     private void GeneratePassword()
     {
         Password = _passwordGenerator.Generate(Length, UseUppercase, UseLowercase, UseDigits, UseSpecial);
+    }
+
+    public void LoadForEdit(PasswordEntry passwordEntry, string decryptedPassword)
+    {
+        Url = passwordEntry.Url ?? string.Empty;
+        Notes = passwordEntry.Notes ?? string.Empty;
+        Title = passwordEntry.Title;
+        Login = passwordEntry.Login;
+        CategoryId = passwordEntry.CategoryId;
+        _editingEntryId = passwordEntry.Id;
+        Password = decryptedPassword;
+    }
+
+    public void ResetForNewEntry()
+    {
+        _editingEntryId = null;
+        Title = string.Empty;
+        Login = string.Empty;
+        Password = string.Empty;
+        Url = string.Empty;
+        Notes = string.Empty;
+        CategoryId = 1;
     }
 }

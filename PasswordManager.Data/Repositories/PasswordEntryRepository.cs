@@ -11,11 +11,11 @@ public class PasswordEntryRepository : Repository<PasswordEntry>, IPasswordEntry
 
     public async Task<IEnumerable<PasswordEntry>> GetAllByUserIdAsync(int userId)
     {
-        return await _context.PasswordEntries.Where(pe => pe.UserId == userId).ToListAsync();
+        return await _context.PasswordEntries.AsNoTracking().Where(pe => pe.UserId == userId).ToListAsync();
     }
 
     public async Task<IEnumerable<PasswordEntry>> SearchAsync(int userId, string searchTerm)
     {
-        return await _context.PasswordEntries.Where(pe => pe.UserId == userId && (pe.Title.Contains(searchTerm) || pe.Login.Contains(searchTerm))).ToListAsync();
+        return await _context.PasswordEntries.AsNoTracking().Where(pe => pe.UserId == userId && (pe.Title.Contains(searchTerm) || pe.Login.Contains(searchTerm))).ToListAsync();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PasswordManager.Core.Entities;
 using PasswordManager.Core.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace PasswordManager.UI.ViewModels;
@@ -51,6 +53,7 @@ public partial class MainDashboardViewModel : ViewModelBase
     [RelayCommand]
     private void ShowAddEntry()
     {
+        _addEntryViewModel.ResetForNewEntry();
         CurrentView = _addEntryViewModel;
     }
 
@@ -58,6 +61,7 @@ public partial class MainDashboardViewModel : ViewModelBase
     {
         _currentUserId = userId;
         var listVm = new PasswordListViewModel(_passwordEntryRepository, _encryptionService, _sessionService);
+        listVm.OnEditRequested += HandleEditRequested;
         await listVm.InitializeAsync(userId);
         CurrentView = listVm;
     }
@@ -65,5 +69,11 @@ public partial class MainDashboardViewModel : ViewModelBase
     private async void OnEntryWasSaved()
     {
         await InitializeAsync(_currentUserId);
+    }
+
+    private void HandleEditRequested(PasswordEntry entry, string decryptedPassword)
+    {
+        _addEntryViewModel.LoadForEdit(entry, decryptedPassword);
+        CurrentView = _addEntryViewModel;
     }
 }

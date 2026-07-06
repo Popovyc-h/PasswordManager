@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using PasswordManager.Core.Entities;
 using PasswordManager.Core.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ public partial class PasswordListViewModel : ViewModelBase
     private readonly IPasswordEntryRepository _repository;
     private readonly IEncryptionService _encryptionService;
     private readonly ISessionService _sessionService;
+
+    public event Action<PasswordEntry, string>? OnEditRequested;
 
     public ObservableCollection<PasswordEntryItemViewModel> PasswordEntries { get; set; } = new();
 
@@ -26,8 +29,15 @@ public partial class PasswordListViewModel : ViewModelBase
         var entries = await _repository.GetAllByUserIdAsync(userId);
         PasswordEntries.Clear();
 
+
         foreach (var entry in entries)
-            PasswordEntries.Add(new PasswordEntryItemViewModel(entry, _encryptionService, _sessionService));
+        {
+            var itemVm = new PasswordEntryItemViewModel(entry, _encryptionService, _sessionService);
+
+            itemVm.OnEditRequested += (passwordEntry, decryptedPassword) => OnEditRequested?.Invoke(passwordEntry, decryptedPassword);
+
+            PasswordEntries.Add(itemVm);
+        }
     }
 
     [RelayCommand]

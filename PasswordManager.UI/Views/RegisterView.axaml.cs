@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace PasswordManager.UI.Views;
 
-public partial class LoginView : UserControl
+public partial class RegisterView : UserControl
 {
-    public LoginView()
+    public RegisterView()
     {
         InitializeComponent();
     }

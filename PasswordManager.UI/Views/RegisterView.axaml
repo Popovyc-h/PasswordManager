@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:svg="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia"
              xmlns:vm="using:PasswordManager.UI.ViewModels"
-             x:DataType="vm:LoginViewModel"
              mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
-             x:Class="PasswordManager.UI.Views.LoginView">
+             x:DataType="vm:RegisterViewModel"
+             x:Class="PasswordManager.UI.Views.RegisterView">
 
     <Grid ColumnDefinitions="5*,6*" Background="{DynamicResource MainBackground}">
         
@@ -48,13 +48,13 @@
                 
                 <TextBlock 
                     Foreground="WhiteSmoke"
-                    Text="Login" 
+                    Text="Створити акаунт" 
                     HorizontalAlignment="Center" 
                     FontSize="34"
                     FontWeight="SemiBold"/>
                 
                 <TextBlock 
-                    Text="Введіть майстер-пароль для входу"
+                    Text="Придумайте надійний майстер-пароль"
                     Foreground="#706e6e"
                     HorizontalAlignment="Center"
                     FontSize="14.5"
@@ -95,43 +95,41 @@
                         Text="{Binding MasterPassword}"
                         FontSize="15"
                         Padding="14,12"
-                        PasswordChar="{Binding PasswordMaskChar}"
-                        Watermark="Введіть ваш пароль"
+                        PasswordChar="*"
+                        Watermark="Мінімум 8 символів"
                         CornerRadius="10">
                         
-                        <TextBox.InnerRightContent>
-                            
-                            <Button Command="{Binding ToggleShowPasswordCommand}"
-                                    Margin="4"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    CornerRadius="8"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center">
-                                <svg:Svg Path="avares://PasswordManager.UI/Assets/eye.svg" Width="20" Height="20"/>
-                            
-                            </Button>
-                        
-                        </TextBox.InnerRightContent>
-                    
                     </TextBox>
             
             </StackPanel>
             
-            <TextBlock 
-                Text="Забули пароль?" 
-                Foreground="#7c3aed" 
-                HorizontalAlignment="Right"
-                FontSize="13.5"
-                TextDecorations="Underline"
-                Cursor="Hand"
-                Margin="0,4,0,0"/>
+            <StackPanel Spacing="8">
 
+                    <TextBlock
+                        Foreground="WhiteSmoke"
+                        Text="ПІДТВЕРДЖЕННЯ ПАРОЛЯ" 
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        LetterSpacing="1"
+                        Margin="4,0,0,0" />
+                    
+                    <TextBox
+                        Text="{Binding ConfirmPassword}"
+                        FontSize="15"
+                        Padding="14,12"
+                        PasswordChar="*"
+                        Watermark="Повторіть ваш пароль"
+                        CornerRadius="10">
+                        
+                    </TextBox>
+            
+            </StackPanel>
+            
             <Button
                 Background="{DynamicResource AccentColor}"
                 Padding="16,14"
                 MinWidth="320"
-                Content="Увійти"
+                Content="Створити акаунт"
                 Foreground="White"
                 FontSize="16.5"
                 CornerRadius="12"
@@ -139,15 +137,15 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Cursor="Hand"
-                Command="{Binding LoginCommand}"
+                Command="{Binding RegisterCommand}"
                 Margin="0,10,0,0"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                 
-                <TextBlock Text="Ще не маєте акаунту? " Foreground="#706e6e" FontSize="13.5"/>
+                <TextBlock Text="Вже маєте акаунт? " Foreground="#706e6e" FontSize="13.5"/>
                 
-                <Button Command="{Binding GoToRegisterCommand}" Background="Transparent" BorderThickness="0" Padding="0">
-                    <TextBlock Text="Створити акаунт" 
+                <Button Command="{Binding GoToLoginCommand}" Background="Transparent" BorderThickness="0" Padding="0">
+                    <TextBlock Text="Увійти" 
                                Foreground="{DynamicResource AccentColor}" 
                                FontWeight="SemiBold"
                                Cursor="Hand"
@@ -158,4 +156,5 @@
 
         </StackPanel>
     </Grid>
+
 </UserControl>

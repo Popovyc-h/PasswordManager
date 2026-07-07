@@ -39,6 +39,7 @@ public partial class App : Application
             services.AddTransient<SettingsViewModel>();
             services.AddSingleton<ISessionService, SessionService>();
             services.AddTransient<AddEntryViewModel>();
+            services.AddTransient<RegisterViewModel>();
 
             var serviceProvider = services.BuildServiceProvider();
 

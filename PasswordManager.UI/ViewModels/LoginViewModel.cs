@@ -9,6 +9,7 @@ namespace PasswordManager.UI.ViewModels;
 public partial class LoginViewModel : ViewModelBase
 {
     public event Action? OnLoginSuccess;
+    public event Action? OnRegisterRequested;
 
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -24,10 +25,10 @@ public partial class LoginViewModel : ViewModelBase
     }
 
     [ObservableProperty]
-    private string _email;
+    private string _email = string.Empty;
 
     [ObservableProperty]
-    private string _masterPassword;
+    private string _masterPassword = string.Empty;
 
     [NotifyPropertyChangedFor(nameof(PasswordMaskChar))]
     [ObservableProperty]
@@ -42,7 +43,7 @@ public partial class LoginViewModel : ViewModelBase
         if (string.IsNullOrWhiteSpace(Email) || !Email.Contains("@") || !Email.Contains("."))
             return;
 
-        if (string.IsNullOrWhiteSpace(MasterPassword) || MasterPassword.Length < 6)
+        if (string.IsNullOrWhiteSpace(MasterPassword) || MasterPassword.Length < 8)
             return;
 
         var user = await _userRepository.GetByUsernameAsync(Email);
@@ -67,5 +68,11 @@ public partial class LoginViewModel : ViewModelBase
             IsPasswordVisible = false;
         else
             IsPasswordVisible = true;
+    }
+
+    [RelayCommand] 
+    private void GoToRegister() 
+    { 
+        OnRegisterRequested?.Invoke(); 
     }
 }

@@ -43,6 +43,7 @@ public partial class App : Application
             services.AddTransient<RegisterViewModel>();
             services.AddTransient<IRepository<UserSettings>, Repository<UserSettings>>();
             services.AddTransient<IRepository<PasswordHistory>, Repository<PasswordHistory>>();
+            services.AddTransient<IRepository<Category>, Repository<Category>>();
 
             var serviceProvider = services.BuildServiceProvider();
 

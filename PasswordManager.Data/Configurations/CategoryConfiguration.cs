@@ -15,5 +15,13 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Name)
                .IsRequired()
                .HasMaxLength(50);
+
+        builder.HasData(
+            new Category { Id = 1, Name = "Соцмережі" },
+            new Category { Id = 2, Name = "Пошта" },
+            new Category { Id = 3, Name = "Банкінг" },
+            new Category { Id = 4, Name = "Робота" },
+            new Category { Id = 5, Name = "Розваги" },
+            new Category { Id = 6, Name = "Інше" });
     }
 }

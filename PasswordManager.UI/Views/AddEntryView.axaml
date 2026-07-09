@@ -82,6 +82,25 @@
                                 
                             </Grid>
                         </StackPanel>
+                        
+                        <StackPanel Spacing="6">
+                            
+                            <TextBlock Text="Категорія" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>
+                            <ComboBox HorizontalAlignment="Stretch"
+                                      ItemsSource="{Binding Categories}"
+                                      SelectedValue="{Binding CategoryId}"
+                                      SelectedValueBinding="{Binding Id}"
+                                      DisplayMemberBinding="{Binding Name}"
+                                      PlaceholderText="Оберіть категорію..."
+                                      Background="{DynamicResource InputBackground}"
+                                      Foreground="{DynamicResource TextMain}"
+                                      BorderBrush="{DynamicResource BorderColor}"
+                                      BorderThickness="1"
+                                      CornerRadius="8"
+                                      Padding="12,8">
+                            </ComboBox>
+                        
+                        </StackPanel>
 
                         <StackPanel Spacing="6">
                             <TextBlock Text="Нотатки" FontSize="12" FontWeight="Medium" Foreground="{DynamicResource TextSecondary}"/>

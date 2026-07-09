@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using PasswordManager.Core.Entities;
 using PasswordManager.Core.Interfaces;
 using System;
+using System.Collections.ObjectModel;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace PasswordManager.UI.ViewModels;
@@ -49,16 +51,20 @@ public partial class AddEntryViewModel : ViewModelBase
     private readonly IPasswordGenerator _passwordGenerator;
     private readonly ISessionService _sessionService;
     private readonly IRepository<PasswordHistory> _passwordHistoryRepository;
+    private readonly IRepository<Category> _categoryRepository;
 
     public event Action? OnEntrySaved;
+    public ObservableCollection<Category> Categories { get; } = new();
 
-    public AddEntryViewModel(IPasswordEntryRepository passwordEntryRepository, IEncryptionService encryptionService, IPasswordGenerator passwordGenerator, ISessionService sessionService, IRepository<PasswordHistory> passwordHistoryRepository)
+    public AddEntryViewModel(IPasswordEntryRepository passwordEntryRepository, IEncryptionService encryptionService, IPasswordGenerator passwordGenerator, ISessionService sessionService, IRepository<PasswordHistory> passwordHistoryRepository, IRepository<Category> categoryRepository)
     {
         _passwordEntryRepository = passwordEntryRepository;
         _encryptionService = encryptionService;
         _passwordGenerator = passwordGenerator;
         _sessionService = sessionService;
         _passwordHistoryRepository = passwordHistoryRepository;
+        _categoryRepository = categoryRepository;
+        _ = LoadCategoriesAsync(); // _ = символ (дискард/discard) для того щоб компілятор не сварився, він каже що йому не потрібен Task який повертає метод
     }
 
     [RelayCommand]
@@ -147,5 +153,14 @@ public partial class AddEntryViewModel : ViewModelBase
         Url = string.Empty;
         Notes = string.Empty;
         CategoryId = 1;
+    }
+
+    private async Task LoadCategoriesAsync()
+    {
+        var list = await _categoryRepository.GetAllAsync();
+        Categories.Clear();
+
+        foreach (var category in list)
+            Categories.Add(category);
     }
 }

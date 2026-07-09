@@ -48,15 +48,17 @@ public partial class AddEntryViewModel : ViewModelBase
     private readonly IEncryptionService _encryptionService;
     private readonly IPasswordGenerator _passwordGenerator;
     private readonly ISessionService _sessionService;
+    private readonly IRepository<PasswordHistory> _passwordHistoryRepository;
 
     public event Action? OnEntrySaved;
 
-    public AddEntryViewModel(IPasswordEntryRepository passwordEntryRepository, IEncryptionService encryptionService, IPasswordGenerator passwordGenerator, ISessionService sessionService)
+    public AddEntryViewModel(IPasswordEntryRepository passwordEntryRepository, IEncryptionService encryptionService, IPasswordGenerator passwordGenerator, ISessionService sessionService, IRepository<PasswordHistory> passwordHistoryRepository)
     {
         _passwordEntryRepository = passwordEntryRepository;
         _encryptionService = encryptionService;
         _passwordGenerator = passwordGenerator;
         _sessionService = sessionService;
+        _passwordHistoryRepository = passwordHistoryRepository;
     }
 
     [RelayCommand]
@@ -75,6 +77,15 @@ public partial class AddEntryViewModel : ViewModelBase
                 return;
 
             var (encryptedPassword, iv) = _encryptionService.Encrypt(Password, _sessionService.AesKey);
+
+            var passwordHistory = new PasswordHistory {
+                EncryptedPassword = existing.EncryptedPassword,
+                IV = existing.IV,
+                PasswordEntryId = existing.Id,
+                ChangedAt = DateTime.UtcNow
+            };
+
+            await _passwordHistoryRepository.AddAsync(passwordHistory);
 
             existing.Title = Title;
             existing.Login = Login;

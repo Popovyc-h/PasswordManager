@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using PasswordManager.Core.Entities;
 using PasswordManager.Core.Interfaces;
 using PasswordManager.Core.Services;
 using PasswordManager.Data.Data;
@@ -40,6 +41,8 @@ public partial class App : Application
             services.AddSingleton<ISessionService, SessionService>();
             services.AddTransient<AddEntryViewModel>();
             services.AddTransient<RegisterViewModel>();
+            services.AddTransient<IRepository<UserSettings>, Repository<UserSettings>>();
+            services.AddTransient<IRepository<PasswordHistory>, Repository<PasswordHistory>>();
 
             var serviceProvider = services.BuildServiceProvider();
 

@@ -14,15 +14,17 @@ public partial class RegisterViewModel : ViewModelBase
     private readonly IPasswordHasher _passwordHasher;
     private readonly IDerivedKeyService _derivedKeyService;
     private readonly ISessionService _sessionService;
+    private readonly IRepository<UserSettings> _userSettings;
 
     public event Action? OnLoginRequested;
 
-    public RegisterViewModel(IUserRepository userRepository, IPasswordHasher passwordHasher, IDerivedKeyService derivedKeyService, ISessionService sessionService)
+    public RegisterViewModel(IUserRepository userRepository, IPasswordHasher passwordHasher, IDerivedKeyService derivedKeyService, ISessionService sessionService, IRepository<UserSettings> userSettings)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _derivedKeyService = derivedKeyService;
         _sessionService = sessionService;
+        _userSettings = userSettings;
     }
 
     [ObservableProperty]
@@ -65,6 +67,10 @@ public partial class RegisterViewModel : ViewModelBase
         };
 
         await _userRepository.AddAsync(user);
+
+        var userSettings = new UserSettings { User = user, Theme = "Dark" };
+
+        await _userSettings.AddAsync(userSettings);
 
         _sessionService.AesKey = _derivedKeyService.DeriveKey(MasterPassword, user.AesKeySalt);
         _sessionService.UserId = user.Id;

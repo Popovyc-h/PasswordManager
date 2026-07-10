@@ -27,23 +27,25 @@ public partial class App : Application
         {
             var services = new ServiceCollection();
 
-            services.AddTransient<AppDbContext>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<LoginViewModel>();
+            services.AddScoped<AppDbContext>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPasswordEntryRepository, PasswordEntryRepository>();
+            services.AddScoped<IRepository<UserSettings>, Repository<UserSettings>>();
+            services.AddScoped<IRepository<PasswordHistory>, Repository<PasswordHistory>>();
+            services.AddScoped<IRepository<Category>, Repository<Category>>();
+
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<IEncryptionService, EncryptionService>();
             services.AddSingleton<IDerivedKeyService, DerivedKeyService>();
             services.AddSingleton<IPasswordGenerator, PasswordGenerator>();
-            services.AddTransient<MainDashboardViewModel>();
-            services.AddTransient<IPasswordEntryRepository, PasswordEntryRepository>();
-            services.AddTransient<SettingsViewModel>();
             services.AddSingleton<ISessionService, SessionService>();
+
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<MainDashboardViewModel>();
+            services.AddTransient<SettingsViewModel>();
             services.AddTransient<AddEntryViewModel>();
             services.AddTransient<RegisterViewModel>();
-            services.AddTransient<IRepository<UserSettings>, Repository<UserSettings>>();
-            services.AddTransient<IRepository<PasswordHistory>, Repository<PasswordHistory>>();
-            services.AddTransient<IRepository<Category>, Repository<Category>>();
 
             var serviceProvider = services.BuildServiceProvider();
 

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Styling;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PasswordManager.Core.Interfaces;
 using System;
@@ -57,6 +58,10 @@ public partial class LoginViewModel : ViewModelBase
         {
             _sessionService.AesKey = _derivedKeyService.DeriveKey(MasterPassword, user.AesKeySalt);
             _sessionService.UserId = user.Id;
+
+            if (user.UserSettings != null)
+                Avalonia.Application.Current.RequestedThemeVariant = user.UserSettings.Theme == "Dark" ? ThemeVariant.Dark : ThemeVariant.Light;
+
             OnLoginSuccess?.Invoke();
         }
     }

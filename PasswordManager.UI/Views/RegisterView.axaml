@@ -95,10 +95,24 @@
                         Text="{Binding MasterPassword}"
                         FontSize="15"
                         Padding="14,12"
-                        PasswordChar="*"
+                        PasswordChar="{Binding PasswordMaskChar}"
                         Watermark="Мінімум 8 символів"
                         CornerRadius="10">
                         
+                        <TextBox.InnerRightContent>
+                            
+                            <Button Command="{Binding ToggleShowPasswordCommand}"
+                                    Margin="4"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="8"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Bottom">
+                                <svg:Svg Path="avares://PasswordManager.UI/Assets/eye.svg" Width="20" Height="20"/>
+                            </Button>
+                        
+                        </TextBox.InnerRightContent>
+                    
                     </TextBox>
             
             </StackPanel>
@@ -117,7 +131,7 @@
                         Text="{Binding ConfirmPassword}"
                         FontSize="15"
                         Padding="14,12"
-                        PasswordChar="*"
+                        PasswordChar="{Binding PasswordMaskChar}"
                         Watermark="Повторіть ваш пароль"
                         CornerRadius="10">
                         

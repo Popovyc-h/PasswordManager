@@ -11,7 +11,7 @@ public class UserRepository : Repository<User>, IUserRepository
     
     public async Task<User?> GetByUsernameAsync(string username)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        return await _context.Users.Include(u => u.UserSettings).FirstOrDefaultAsync(u => u.Username == username);
     }
 
     public async Task<bool> ExistsByUsernameAsync(string username)

@@ -82,4 +82,16 @@ public partial class RegisterViewModel : ViewModelBase
     {
         OnLoginRequested?.Invoke();
     }
+
+    [NotifyPropertyChangedFor(nameof(PasswordMaskChar))]
+    [ObservableProperty]
+    private bool _isPasswordVisible;
+
+    public char PasswordMaskChar => IsPasswordVisible ? '\0' : '*';
+
+    [RelayCommand]
+    private void ToggleShowPassword()
+    {
+        IsPasswordVisible = !IsPasswordVisible;
+    }
 }
